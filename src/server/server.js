@@ -13,7 +13,9 @@ var PORT = 3000
 
 var app = express()
 
-app.use('/', expressGraphql({
+app.use(express.static(__dirname + './../public'))
+
+app.use('/graphql', expressGraphql({
   schema: Schema,
   graphiql: true
 }))

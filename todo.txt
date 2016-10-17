@@ -1,0 +1,3 @@
+- Change all Evocation to evocation, and other ones!
+
+- Check that all have a description

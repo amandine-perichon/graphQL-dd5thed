@@ -2,9 +2,12 @@
   "name": "graphql-dd5thed",
   "version": "1.0.0",
   "description": "GraphQL server with dungeons and dragons 5th edition information",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./src/server/server.js",
+    "build": "webpack ./src/public/bundle.js",
+    "build:schema": "babel-node ./src/utils/updateSchema.js",
+    "devserver": "webpack-dev-server --hot --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +26,25 @@
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "graphql": "^0.7.2",
+    "graphql-relay": "^0.4.3",
     "mongodb": "^2.2.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-relay-plugin": "^0.9.3",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-relay": "^0.9.3",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }
