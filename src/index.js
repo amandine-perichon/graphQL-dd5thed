@@ -2,15 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Relay from 'react-relay'
 
-import SpellSearchContainer from './client/spell/SpellSearchContainer'
-import SpellHomeRoute from './client/spell/SpellHomeRoute'
+import SpellsContainer from './client/spell/SpellsContainer'
 
+const queries = {
+  name: 'SpellsQueries',
+  params: {},
+  queries: {
+    spells: () => Relay.QL`query { spells }`
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Relay.RootContainer
-    Component={SpellSearchContainer}
-    route={new SpellHomeRoute()}
+    Component={SpellsContainer}
+    route={queries}
+    onReadyStateChange={({error}) => { if (error) console.error(error) }}
   />
     , document.getElementById('app'))
 })

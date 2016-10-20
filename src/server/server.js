@@ -6,7 +6,7 @@ var express = require('express')
 var graphql = require('graphql')
 var expressGraphql = require('express-graphql')
 
-var Schema = require('./schema.js').default
+var Schema = require('./schema.js')
 var db = require('./db')
 
 var PORT = 3000

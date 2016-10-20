@@ -2,7 +2,7 @@ import React from 'react'
 
 export default React.createClass({
   props: {
-    _id: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     level: React.PropTypes.string.isRequired,
     school: React.PropTypes.string.isRequired,
@@ -10,12 +10,13 @@ export default React.createClass({
     range: React.PropTypes.string.isRequired,
     duration: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
-    ritual: React.PropTypes.boolean.isRequired
-    higher_levels: React.PropTypes.string.isRequired,
+    ritual: React.PropTypes.boolean,
+    higher_levels: React.PropTypes.string,
     classes: React.PropTypes.array.isRequired,
     components: React.PropTypes.object.isRequired
   },
-  render: {
+  render () {
+    console.log("props", this.props)
     return (
       <div className="spell">
         <div className="spell-name">{this.props.name}</div>

@@ -46,6 +46,8 @@
 
 	'use strict';
 	
+	var _templateObject = _taggedTemplateLiteral(['query { spells }'], ['query { spells }']);
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -58,20 +60,32 @@
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 	
-	var _SpellSearchContainer = __webpack_require__(468);
+	var _SpellsContainer = __webpack_require__(468);
 	
-	var _SpellSearchContainer2 = _interopRequireDefault(_SpellSearchContainer);
-	
-	var _SpellHomeRoute = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./client/spell/SpellHomeRoute\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	
-	var _SpellHomeRoute2 = _interopRequireDefault(_SpellHomeRoute);
+	var _SpellsContainer2 = _interopRequireDefault(_SpellsContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+	
+	var queries = {
+	  name: 'SpellsQueries',
+	  params: {},
+	  queries: {
+	    spells: function spells() {
+	      return _reactRelay2.default.QL(_templateObject);
+	    }
+	  }
+	};
+	
 	document.addEventListener('DOMContentLoaded', function () {
 	  _reactDom2.default.render(_react2.default.createElement(_reactRelay2.default.RootContainer, {
-	    Component: _SpellSearchContainer2.default,
-	    route: new _SpellHomeRoute2.default()
+	    Component: _SpellsContainer2.default,
+	    route: queries,
+	    onReadyStateChange: function onReadyStateChange(_ref) {
+	      var error = _ref.error;
+	      if (error) console.error(error);
+	    }
 	  }), document.getElementById('app'));
 	});
 
@@ -45566,24 +45580,120 @@
 	  value: true
 	});
 	
-	var _templateObject = _taggedTemplateLiteral(['\n      fragment on Query {\n        spells { ', ' },\n      }\n    '], ['\n      fragment on Query {\n        spells { ', ' },\n      }\n    ']);
-	
 	var _reactRelay = __webpack_require__(172);
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 	
-	var _SpellSearch = __webpack_require__(469);
+	var _Spells = __webpack_require__(469);
 	
-	var _SpellSearch2 = _interopRequireDefault(_SpellSearch);
+	var _Spells2 = _interopRequireDefault(_Spells);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-	
-	exports.default = _reactRelay2.default.createContainer(TeaStore, {
+	exports.default = _reactRelay2.default.createContainer(_Spells2.default, {
 	  fragments: {
-	    query: function query() {
-	      return _reactRelay2.default.QL(_templateObject, Spell.getFragment('spell'));
+	    spells: function spells() {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }, {
+	            fieldName: 'name',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'level',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'school',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'school'
+	          }, {
+	            fieldName: 'casting_time',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'range',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'duration',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'description',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'ritual',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'Boolean'
+	          }, {
+	            fieldName: 'higher_levels',
+	            kind: 'Field',
+	            metadata: {},
+	            type: 'String'
+	          }, {
+	            fieldName: 'classes',
+	            kind: 'Field',
+	            metadata: {
+	              isPlural: true
+	            },
+	            type: 'class'
+	          }, {
+	            children: [{
+	              fieldName: 'verbal',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Boolean'
+	            }, {
+	              fieldName: 'somatic',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Boolean'
+	            }, {
+	              fieldName: 'material',
+	              kind: 'Field',
+	              metadata: {},
+	              type: 'Boolean'
+	            }, {
+	              fieldName: 'materials_needed',
+	              kind: 'Field',
+	              metadata: {
+	                isPlural: true
+	              },
+	              type: 'String'
+	            }],
+	            fieldName: 'components',
+	            kind: 'Field',
+	            metadata: {
+	              canHaveSubselections: true
+	            },
+	            type: 'Components'
+	          }],
+	          id: _reactRelay2.default.QL.__id(),
+	          kind: 'Fragment',
+	          metadata: {
+	            plural: true
+	          },
+	          name: 'SpellsContainer_SpellsRelayQL',
+	          type: 'Spell'
+	        };
+	      }();
 	    }
 	  }
 	});
@@ -45598,6 +45708,47 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Spell = __webpack_require__(470);
+	
+	var _Spell2 = _interopRequireDefault(_Spell);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	  displayName: 'Spells',
+	
+	  props: {
+	    spells: _react2.default.PropTypes.array.isRequired
+	  },
+	  render: function render() {
+	    console.log("props", this.props);
+	    var spellComponents = this.props.spells.map(function (elem) {
+	      return _react2.default.createElement(_Spell2.default, _extends({ key: elem.id }, elem));
+	    });
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'spell-list' },
+	      spellComponents
+	    );
+	  }
+	});
+
+/***/ },
+/* 470 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -45605,21 +45756,94 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-	  displayName: 'SpellSearch',
+	  displayName: "Spell",
 	
 	  props: {
-	    spells: _react2.default.PropTypes.array.isRequired
+	    id: _react2.default.PropTypes.string.isRequired,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    level: _react2.default.PropTypes.string.isRequired,
+	    school: _react2.default.PropTypes.string.isRequired,
+	    casting_time: _react2.default.PropTypes.string.isRequired,
+	    range: _react2.default.PropTypes.string.isRequired,
+	    duration: _react2.default.PropTypes.string.isRequired,
+	    description: _react2.default.PropTypes.string.isRequired,
+	    ritual: _react2.default.PropTypes.boolean,
+	    higher_levels: _react2.default.PropTypes.string,
+	    classes: _react2.default.PropTypes.array.isRequired,
+	    components: _react2.default.PropTypes.object.isRequired
 	  },
 	  render: function render() {
-	    _react2.default.createElement(
-	      'div',
-	      null,
+	    console.log("props", this.props);
+	    return _react2.default.createElement(
+	      "div",
+	      { className: "spell" },
 	      _react2.default.createElement(
-	        'div',
-	        null,
-	        'Search Form here'
+	        "div",
+	        { className: "spell-name" },
+	        this.props.name
 	      ),
-	      _react2.default.createElement(Spells, { spells: this.props.spells })
+	      _react2.default.createElement(
+	        "div",
+	        { className: "spell-type" },
+	        "level ",
+	        this.props.level,
+	        " - ",
+	        this.props.school
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Casting time: ",
+	        this.props.casting_time
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Range: ",
+	        this.props.range
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Duration: ",
+	        this.props.duration
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Description: ",
+	        this.props.description
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Ritual: ",
+	        this.props.ritual
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Higher Levels: ",
+	        this.props.higher_levels
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Classes: ",
+	        this.props.classes
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Components: V: ",
+	        this.props.components.verbal,
+	        "V: ",
+	        this.props.components.somatic,
+	        "V: ",
+	        this.props.components.material,
+	        "materials: ",
+	        this.props.components.materials_needed
+	      )
 	    );
 	  }
 	});

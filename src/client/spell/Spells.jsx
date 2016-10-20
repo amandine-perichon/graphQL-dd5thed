@@ -7,7 +7,8 @@ export default React.createClass({
     spells: React.PropTypes.array.isRequired
   },
   render () {
-    const spellComponents = this.props.spells.map((elem) => return <Spell key={elem._id} {...elem} />)
+    console.log("props", this.props)
+    const spellComponents = this.props.spells.map((elem) => <Spell key={elem.id} {...elem} />)
     return (
       <div className="spell-list">
         {spellComponents}

@@ -44,7 +44,11 @@
   "babel": {
     "presets": [
       "es2015",
-      "react"
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "./src/utils/babelRelayPlugin"
     ]
   }
 }
