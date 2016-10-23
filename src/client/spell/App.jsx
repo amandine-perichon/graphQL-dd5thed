@@ -1,10 +1,22 @@
+import React from 'react'
 import Relay from 'react-relay'
 
 import Spells from './Spells'
 
-export default Relay.createContainer(Spells, {
+
+const App = React.createClass({
+  props: {
+    user: React.PropTypes.object.isRequired
+  },
+  render () {
+    console.log("App component props", this.props)
+    return <Spells spells={this.props.user.spells} />
+  }
+})
+
+export default Relay.createContainer(App, {
   fragments: {
-    spells: () => Relay.QL`
+    user: () => Relay.QL`
       fragment on User {
         spells {
           edges {
@@ -32,4 +44,4 @@ export default Relay.createContainer(Spells, {
       }
     `
   },
-});
+})

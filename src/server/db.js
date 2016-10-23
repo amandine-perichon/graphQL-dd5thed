@@ -18,7 +18,14 @@ function connect () {
   })
 }
 
+function getUser(user) {
+  return {
+    id: "1"
+  }
+}
+
 function listAllSpells () {
+  console.log("trying to find all spells")
   return spellCollection.find()
 }
 
@@ -84,5 +91,6 @@ module.exports = {
   connect: connect,
   listAllSpells: listAllSpells,
   findSpellById: findSpells,
-  findSpells: findSpells
+  findSpells: findSpells,
+  getUser: getUser
 }

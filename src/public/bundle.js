@@ -46,8 +46,6 @@
 
 	'use strict';
 	
-	var _templateObject = _taggedTemplateLiteral(['query { spells }'], ['query { spells }']);
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -60,27 +58,42 @@
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 	
-	var _SpellsContainer = __webpack_require__(468);
+	var _App = __webpack_require__(468);
 	
-	var _SpellsContainer2 = _interopRequireDefault(_SpellsContainer);
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 	
 	var queries = {
 	  name: 'SpellsQueries',
 	  params: {},
 	  queries: {
-	    spells: function spells() {
-	      return _reactRelay2.default.QL(_templateObject);
+	    user: function user() {
+	      return function () {
+	        return {
+	          children: [{
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'ID'
+	          }],
+	          fieldName: 'user',
+	          kind: 'Query',
+	          metadata: {},
+	          name: 'Index',
+	          type: 'User'
+	        };
+	      }();
 	    }
 	  }
 	};
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  _reactDom2.default.render(_react2.default.createElement(_reactRelay2.default.RootContainer, {
-	    Component: _SpellsContainer2.default,
+	    Component: _App2.default,
 	    route: queries,
 	    onReadyStateChange: function onReadyStateChange(_ref) {
 	      var error = _ref.error;
@@ -45580,6 +45593,10 @@
 	  value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRelay = __webpack_require__(172);
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
@@ -45590,108 +45607,188 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = _reactRelay2.default.createContainer(_Spells2.default, {
+	var App = _react2.default.createClass({
+	  displayName: 'App',
+	
+	  props: {
+	    user: _react2.default.PropTypes.object.isRequired
+	  },
+	  render: function render() {
+	    console.log("App component props", this.props);
+	    return _react2.default.createElement(_Spells2.default, { spells: this.props.user.spells });
+	  }
+	});
+	
+	exports.default = _reactRelay2.default.createContainer(App, {
 	  fragments: {
-	    spells: function spells() {
+	    user: function user() {
 	      return function () {
 	        return {
 	          children: [{
-	            fieldName: 'id',
-	            kind: 'Field',
-	            metadata: {
-	              isRequisite: true
-	            },
-	            type: 'ID'
-	          }, {
-	            fieldName: 'name',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'level',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'school',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'school'
-	          }, {
-	            fieldName: 'casting_time',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'range',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'duration',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'description',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'ritual',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'Boolean'
-	          }, {
-	            fieldName: 'higher_levels',
-	            kind: 'Field',
-	            metadata: {},
-	            type: 'String'
-	          }, {
-	            fieldName: 'classes',
-	            kind: 'Field',
-	            metadata: {
-	              isPlural: true
-	            },
-	            type: 'class'
-	          }, {
 	            children: [{
-	              fieldName: 'verbal',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'Boolean'
-	            }, {
-	              fieldName: 'somatic',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'Boolean'
-	            }, {
-	              fieldName: 'material',
-	              kind: 'Field',
-	              metadata: {},
-	              type: 'Boolean'
-	            }, {
-	              fieldName: 'materials_needed',
+	              children: [{
+	                children: [{
+	                  fieldName: 'id',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isRequisite: true
+	                  },
+	                  type: 'ID'
+	                }, {
+	                  fieldName: 'name',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'level',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'school',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'school'
+	                }, {
+	                  fieldName: 'casting_time',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'range',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'duration',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'description',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'ritual',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'Boolean'
+	                }, {
+	                  fieldName: 'higher_levels',
+	                  kind: 'Field',
+	                  metadata: {},
+	                  type: 'String'
+	                }, {
+	                  fieldName: 'classes',
+	                  kind: 'Field',
+	                  metadata: {
+	                    isPlural: true
+	                  },
+	                  type: 'class'
+	                }, {
+	                  children: [{
+	                    fieldName: 'verbal',
+	                    kind: 'Field',
+	                    metadata: {},
+	                    type: 'Boolean'
+	                  }, {
+	                    fieldName: 'somatic',
+	                    kind: 'Field',
+	                    metadata: {},
+	                    type: 'Boolean'
+	                  }, {
+	                    fieldName: 'material',
+	                    kind: 'Field',
+	                    metadata: {},
+	                    type: 'Boolean'
+	                  }, {
+	                    fieldName: 'materials_needed',
+	                    kind: 'Field',
+	                    metadata: {
+	                      isPlural: true
+	                    },
+	                    type: 'String'
+	                  }],
+	                  fieldName: 'components',
+	                  kind: 'Field',
+	                  metadata: {
+	                    canHaveSubselections: true
+	                  },
+	                  type: 'Components'
+	                }],
+	                fieldName: 'node',
+	                kind: 'Field',
+	                metadata: {
+	                  canHaveSubselections: true,
+	                  inferredRootCallName: 'node',
+	                  inferredPrimaryKey: 'id',
+	                  isRequisite: true
+	                },
+	                type: 'Spell'
+	              }, {
+	                fieldName: 'cursor',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'String'
+	              }],
+	              fieldName: 'edges',
 	              kind: 'Field',
 	              metadata: {
+	                canHaveSubselections: true,
 	                isPlural: true
 	              },
-	              type: 'String'
+	              type: 'SpellEdge'
+	            }, {
+	              children: [{
+	                fieldName: 'hasNextPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }, {
+	                fieldName: 'hasPreviousPage',
+	                kind: 'Field',
+	                metadata: {
+	                  isGenerated: true,
+	                  isRequisite: true
+	                },
+	                type: 'Boolean'
+	              }],
+	              fieldName: 'pageInfo',
+	              kind: 'Field',
+	              metadata: {
+	                canHaveSubselections: true,
+	                isGenerated: true,
+	                isRequisite: true
+	              },
+	              type: 'PageInfo'
 	            }],
-	            fieldName: 'components',
+	            fieldName: 'spells',
 	            kind: 'Field',
 	            metadata: {
 	              canHaveSubselections: true
 	            },
-	            type: 'Components'
+	            type: 'SpellConnection'
+	          }, {
+	            fieldName: 'id',
+	            kind: 'Field',
+	            metadata: {
+	              isGenerated: true,
+	              isRequisite: true
+	            },
+	            type: 'ID'
 	          }],
 	          id: _reactRelay2.default.QL.__id(),
 	          kind: 'Fragment',
-	          metadata: {
-	            plural: true
-	          },
-	          name: 'SpellsContainer_SpellsRelayQL',
-	          type: 'Spell'
+	          metadata: {},
+	          name: 'App_UserRelayQL',
+	          type: 'User'
 	        };
 	      }();
 	    }
@@ -45708,8 +45805,6 @@
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -45724,12 +45819,12 @@
 	  displayName: 'Spells',
 	
 	  props: {
-	    spells: _react2.default.PropTypes.array.isRequired
+	    spells: _react2.default.PropTypes.object.isRequired
 	  },
 	  render: function render() {
-	    console.log("props", this.props);
-	    var spellComponents = this.props.spells.map(function (elem) {
-	      return _react2.default.createElement(_Spell2.default, _extends({ key: elem.id }, elem));
+	    console.log("spells component", "props", this.props);
+	    var spellComponents = this.props.spells.edges.map(function (edge, i) {
+	      return _react2.default.createElement(_Spell2.default, { key: i, edge: edge });
 	    });
 	    return _react2.default.createElement(
 	      'div',
@@ -45759,90 +45854,79 @@
 	  displayName: "Spell",
 	
 	  props: {
-	    id: _react2.default.PropTypes.string.isRequired,
-	    name: _react2.default.PropTypes.string.isRequired,
-	    level: _react2.default.PropTypes.string.isRequired,
-	    school: _react2.default.PropTypes.string.isRequired,
-	    casting_time: _react2.default.PropTypes.string.isRequired,
-	    range: _react2.default.PropTypes.string.isRequired,
-	    duration: _react2.default.PropTypes.string.isRequired,
-	    description: _react2.default.PropTypes.string.isRequired,
-	    ritual: _react2.default.PropTypes.boolean,
-	    higher_levels: _react2.default.PropTypes.string,
-	    classes: _react2.default.PropTypes.array.isRequired,
-	    components: _react2.default.PropTypes.object.isRequired
+	    edge: _react2.default.PropTypes.object.isRequired
 	  },
 	  render: function render() {
-	    console.log("props", this.props);
+	    var spell = this.props.edge.node;
 	    return _react2.default.createElement(
 	      "div",
 	      { className: "spell" },
 	      _react2.default.createElement(
 	        "div",
 	        { className: "spell-name" },
-	        this.props.name
+	        spell.name
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        { className: "spell-type" },
 	        "level ",
-	        this.props.level,
+	        spell.level,
 	        " - ",
-	        this.props.school
+	        spell.school
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Casting time: ",
-	        this.props.casting_time
+	        spell.casting_time
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Range: ",
-	        this.props.range
+	        spell.range
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Duration: ",
-	        this.props.duration
+	        spell.duration
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Description: ",
-	        this.props.description
+	        spell.description
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Ritual: ",
-	        this.props.ritual
+	        spell.ritual
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Higher Levels: ",
-	        this.props.higher_levels
+	        spell.higher_levels
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Classes: ",
-	        this.props.classes
+	        spell.classes
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
 	        "Components: V: ",
-	        this.props.components.verbal,
+	        spell.components.verbal,
 	        "V: ",
-	        this.props.components.somatic,
+	        spell.components.somatic,
 	        "V: ",
-	        this.props.components.material,
+	        spell.components.material,
 	        "materials: ",
-	        this.props.components.materials_needed
+	        spell.components.materials_needed
 	      )
 	    );
 	  }

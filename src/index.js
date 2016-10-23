@@ -2,20 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Relay from 'react-relay'
 
-import SpellsContainer from './client/spell/SpellsContainer'
+import App from './client/spell/App'
 
 const queries = {
   name: 'SpellsQueries',
   params: {},
   queries: {
-    spells: () => Relay.QL`query { spells }`
+    user: () => Relay.QL`query { user }`
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Relay.RootContainer
-    Component={SpellsContainer}
+    Component={App}
     route={queries}
     onReadyStateChange={({error}) => { if (error) console.error(error) }}
   />

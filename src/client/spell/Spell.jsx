@@ -2,36 +2,25 @@ import React from 'react'
 
 export default React.createClass({
   props: {
-    id: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    level: React.PropTypes.string.isRequired,
-    school: React.PropTypes.string.isRequired,
-    casting_time: React.PropTypes.string.isRequired,
-    range: React.PropTypes.string.isRequired,
-    duration: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string.isRequired,
-    ritual: React.PropTypes.boolean,
-    higher_levels: React.PropTypes.string,
-    classes: React.PropTypes.array.isRequired,
-    components: React.PropTypes.object.isRequired
+    edge: React.PropTypes.object.isRequired
   },
   render () {
-    console.log("props", this.props)
+    const spell = this.props.edge.node
     return (
       <div className="spell">
-        <div className="spell-name">{this.props.name}</div>
-        <div className="spell-type">level {this.props.level} - {this.props.school}</div>
-        <div>Casting time: {this.props.casting_time}</div>
-        <div>Range: {this.props.range}</div>
-        <div>Duration: {this.props.duration}</div>
-        <div>Description: {this.props.description}</div>
-        <div>Ritual: {this.props.ritual}</div>
-        <div>Higher Levels: {this.props.higher_levels}</div>
-        <div>Classes: {this.props.classes}</div>
-        <div>Components: V: {this.props.components.verbal}
-                         V: {this.props.components.somatic}
-                         V: {this.props.components.material}
-                         materials: {this.props.components.materials_needed}
+        <div className="spell-name">{spell.name}</div>
+        <div className="spell-type">level {spell.level} - {spell.school}</div>
+        <div>Casting time: {spell.casting_time}</div>
+        <div>Range: {spell.range}</div>
+        <div>Duration: {spell.duration}</div>
+        <div>Description: {spell.description}</div>
+        <div>Ritual: {spell.ritual}</div>
+        <div>Higher Levels: {spell.higher_levels}</div>
+        <div>Classes: {spell.classes}</div>
+        <div>Components: V: {spell.components.verbal}
+                         V: {spell.components.somatic}
+                         V: {spell.components.material}
+                         materials: {spell.components.materials_needed}
         </div>
       </div>
     )

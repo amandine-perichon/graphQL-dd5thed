@@ -68,89 +68,74 @@ const Components = new GraphQLObjectType({
   })
 })
 
-const Spell = new GraphQLObjectType({
+// const Spell = new GraphQLObjectType({
+//   name: 'Spell',
+//   description: 'Represent a spell',
+//   isTypeOf: function(obj) { return true}, /// ???
+//   fields: () => ({
+//     id: GraphQLRelay.globalIdField('Spell'),
+//     name: {type: new GraphQLNonNull(GraphQLString)},
+//     level: {type: new GraphQLNonNull(GraphQLString)},
+//     school: {type: new GraphQLNonNull(School)},
+//     casting_time: {type: new GraphQLNonNull(GraphQLString)},
+//     range: {type: new GraphQLNonNull(GraphQLString)},
+//     components: {type: new GraphQLNonNull(Components)},
+//     duration: {type: new GraphQLNonNull(GraphQLString)},
+//     description: {type: new GraphQLNonNull(GraphQLString)},
+//     ritual: {type: GraphQLBoolean},
+//     higher_levels: {type: GraphQLString},
+//     classes: {type: new GraphQLNonNull(new GraphQLList(Class))}
+//   }),
+//   interfaces: [nodeDefinitions.nodeInterface]
+// })
+
+const SpellType = new GraphQLObjectType({
   name: 'Spell',
   description: 'Represent a spell',
   isTypeOf: function(obj) { return true}, /// ???
   fields: () => ({
     id: GraphQLRelay.globalIdField('Spell'),
-    name: {type: new GraphQLNonNull(GraphQLString)},
-    level: {type: new GraphQLNonNull(GraphQLString)},
-    school: {type: new GraphQLNonNull(School)},
-    casting_time: {type: new GraphQLNonNull(GraphQLString)},
-    range: {type: new GraphQLNonNull(GraphQLString)},
-    components: {type: new GraphQLNonNull(Components)},
-    duration: {type: new GraphQLNonNull(GraphQLString)},
-    description: {type: new GraphQLNonNull(GraphQLString)},
+    name: {type: GraphQLString},
+    level: {type: GraphQLString},
+    school: {type: School},
+    casting_time: {type: GraphQLString},
+    range: {type: GraphQLString},
+    components: {type: Components},
+    duration: {type: GraphQLString},
+    description: {type: GraphQLString},
     ritual: {type: GraphQLBoolean},
     higher_levels: {type: GraphQLString},
-    classes: {type: new GraphQLNonNull(new GraphQLList(Class))}
+    classes: {type: new GraphQLList(Class)}
   }),
   interfaces: [nodeDefinitions.nodeInterface]
-});
+})
+
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  description: 'For later use, will include the user',
+  isTypeOf: function(obj) { return true}, /// ???
+  fields: () => ({
+    id:  GraphQLRelay.globalIdField('User'),
+    spells: {
+      description: 'List of spells',
+      type: GraphQLRelay.connectionDefinitions({
+          name: 'Spell',
+          nodeType: SpellType}).connectionType,
+      resolve: (user, args) => {
+        return GraphQLRelay.connectionFromPromisedArray(db.listAllSpells().toArray(), args)
+      }
+    }
+  }),
+  interfaces: [nodeDefinitions.nodeInterface]
+})
 
 const Query = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
     node: nodeDefinitions.nodeField,
-    spells: {
-      type: new GraphQLList(Spell),
-      args: {
-        name: {
-          description: 'Name of the spell',
-          type: GraphQLString
-        },
-        class: {
-          description: 'Class that can cast the spell',
-          type: Class
-        },
-        school: {
-          description: 'School of magic',
-          type: School
-        },
-        level: {
-          description: 'Level of the spell',
-          type: GraphQLString
-        },
-        higher_levels: {
-          description: 'Indicates whether a description of the spells at higher levels is available',
-          type: GraphQLBoolean
-        },
-        duration: {
-          description: 'Text search on duration field',
-          type: GraphQLString
-        },
-        range: {
-          description: 'Text search on the range field',
-          type: GraphQLString
-        },
-        ritual: {
-          description: 'Spell can be cast as ritual',
-          type: GraphQLBoolean
-        },
-        concentration: {
-          description: 'Spell requires concentration',
-          type: GraphQLBoolean
-        },
-        casting_time: {
-          description: 'Text search on casting_time field',
-          type: GraphQLString
-        },
-        description: {
-          description: 'Text search on description field',
-          type: GraphQLString
-        },
-        component_type: {
-          description: "Type of component: verbal, somatic or material",
-          type: Component
-        }
-      },
-      resolve: function(root, params) {
-        if (Object.keys(params).length) {
-          return db.findSpells(params).toArray()
-        }
-        return db.listAllSpells().toArray()
-      }
+    user: {
+      type: UserType,
+      resolve: () => db.getUser(1)
     }
   }
 })
@@ -160,3 +145,62 @@ const Schema = new GraphQLSchema({
 })
 
 module.exports = Schema
+
+
+// args: {
+//   name: {
+//     description: 'Name of the spell',
+//     type: GraphQLString
+//   },
+//   class: {
+//     description: 'Class that can cast the spell',
+//     type: Class
+//   },
+//   school: {
+//     description: 'School of magic',
+//     type: School
+//   },
+//   level: {
+//     description: 'Level of the spell',
+//     type: GraphQLString
+//   },
+//   higher_levels: {
+//     description: 'Indicates whether a description of the spells at higher levels is available',
+//     type: GraphQLBoolean
+//   },
+//   duration: {
+//     description: 'Text search on duration field',
+//     type: GraphQLString
+//   },
+//   range: {
+//     description: 'Text search on the range field',
+//     type: GraphQLString
+//   },
+//   ritual: {
+//     description: 'Spell can be cast as ritual',
+//     type: GraphQLBoolean
+//   },
+//   concentration: {
+//     description: 'Spell requires concentration',
+//     type: GraphQLBoolean
+//   },
+//   casting_time: {
+//     description: 'Text search on casting_time field',
+//     type: GraphQLString
+//   },
+//   description: {
+//     description: 'Text search on description field',
+//     type: GraphQLString
+//   },
+//   component_type: {
+//     description: "Type of component: verbal, somatic or material",
+//     type: Component
+//   }
+// },
+// resolve: function(root, params) {
+//   if (Object.keys(params).length) {
+//     return db.findSpells(params).toArray()
+//   }
+//   return db.listAllSpells().toArray()
+//   }
+// }
