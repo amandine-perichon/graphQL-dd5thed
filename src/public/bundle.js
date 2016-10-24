@@ -45824,7 +45824,7 @@
 	  render: function render() {
 	    console.log("spells component", "props", this.props);
 	    var spellComponents = this.props.spells.edges.map(function (edge, i) {
-	      return _react2.default.createElement(_Spell2.default, { key: i, edge: edge });
+	      return _react2.default.createElement(_Spell2.default, { key: edge.node.id, edge: edge });
 	    });
 	    return _react2.default.createElement(
 	      'div',
@@ -45858,6 +45858,7 @@
 	  },
 	  render: function render() {
 	    var spell = this.props.edge.node;
+	    console.log(spell.components);
 	    return _react2.default.createElement(
 	      "div",
 	      { className: "spell" },
@@ -45895,38 +45896,60 @@
 	      _react2.default.createElement(
 	        "div",
 	        null,
-	        "Description: ",
-	        spell.description
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        null,
 	        "Ritual: ",
 	        spell.ritual
 	      ),
 	      _react2.default.createElement(
 	        "div",
 	        null,
+	        "Classes: ",
+	        spell.classes.map(function (elem) {
+	          return _react2.default.createElement(
+	            "div",
+	            null,
+	            elem
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Components:",
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "V: ",
+	          spell.components.verbal ? "Yes" : "No"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "S: ",
+	          spell.components.somatic ? "Yes" : "No"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          "M: ",
+	          spell.components.material ? "Yes" : "No"
+	        ),
+	        spell.components.material ? _react2.default.createElement(
+	          "div",
+	          null,
+	          "materials: " + spell.components.materials_needed
+	        ) : null
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        "Description: ",
+	        spell.description
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
 	        "Higher Levels: ",
 	        spell.higher_levels
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        null,
-	        "Classes: ",
-	        spell.classes
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        null,
-	        "Components: V: ",
-	        spell.components.verbal,
-	        "V: ",
-	        spell.components.somatic,
-	        "V: ",
-	        spell.components.material,
-	        "materials: ",
-	        spell.components.materials_needed
 	      )
 	    );
 	  }

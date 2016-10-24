@@ -14,11 +14,23 @@ var GraphQLRelay = require('graphql-relay')
 
 var db = require('./db')
 
-const nodeDefinitions = GraphQLRelay.nodeDefinitions((globalId) => {
-  // Should test for the type of Object
-  const idInfo = GraphQLRelay.fromGlobalId(globalId)
-  return db.findSpellById(IdInfo.id)
-})
+const nodeDefinitions = GraphQLRelay.nodeDefinitions(
+  (globalId) => {
+    const idInfo = GraphQLRelay.fromGlobalId(globalId)
+    if (idInfo.type == 'User') {
+      console.log('using nodeDefinitions with user')
+      return db.getUser(idInfo.id)
+    } else if(idInfo == 'Spell') {
+      console.log('using nodeDefinitions with spell')
+      return db.findSpellById(IdInfo.id)
+    }
+    console.log('using nodeDefinitions other')
+    return null
+  },
+  (obj) => {
+    return obj.school ? SpellType : UserType
+  }
+)
 
 const School = new GraphQLEnumType({
   name: "school",
@@ -92,7 +104,7 @@ const Components = new GraphQLObjectType({
 const SpellType = new GraphQLObjectType({
   name: 'Spell',
   description: 'Represent a spell',
-  isTypeOf: function(obj) { return true}, /// ???
+  isTypeOf: function(obj) { return true },
   fields: () => ({
     id: GraphQLRelay.globalIdField('Spell'),
     name: {type: GraphQLString},
@@ -113,7 +125,7 @@ const SpellType = new GraphQLObjectType({
 const UserType = new GraphQLObjectType({
   name: 'User',
   description: 'For later use, will include the user',
-  isTypeOf: function(obj) { return true}, /// ???
+  isTypeOf: function(obj) { return obj.id === "fixed_viewer"},
   fields: () => ({
     id:  GraphQLRelay.globalIdField('User'),
     spells: {
@@ -122,6 +134,7 @@ const UserType = new GraphQLObjectType({
           name: 'Spell',
           nodeType: SpellType}).connectionType,
       resolve: (user, args) => {
+        // db.listAllSpells().toArray().then(data => console.log(data.map(elem => elem._id)))
         return GraphQLRelay.connectionFromPromisedArray(db.listAllSpells().toArray(), args)
       }
     }
@@ -135,7 +148,7 @@ const Query = new GraphQLObjectType({
     node: nodeDefinitions.nodeField,
     user: {
       type: UserType,
-      resolve: () => db.getUser(1)
+      resolve: () => db.getUser("fixed_viewer")
     }
   }
 })

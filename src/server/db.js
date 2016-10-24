@@ -18,9 +18,9 @@ function connect () {
   })
 }
 
-function getUser(user) {
+function getUser(id) {
   return {
-    id: "1"
+    id: "fixed_viewer"
   }
 }
 
@@ -85,7 +85,6 @@ function findSpells (params) {
   console.log(query)
   return spellCollection.find(query)
 }
-
 
 module.exports = {
   connect: connect,
